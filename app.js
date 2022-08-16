@@ -1,4 +1,4 @@
-Cookies.set(`current_user`);
+
 
 document.querySelector(`#log_in_button`).addEventListener(`click`, get_info);
 
@@ -19,17 +19,35 @@ function get_info (details) {
 
 function successFunction (response444) {
     
-    Cookies.set(`current_user`, `${response444[`data`][`token`]}`);
+    Cookies.set(`token`, `${response444[`data`][`token`]}`);
  document.body.insertAdjacentHTML("beforeend", `<h1>${response444[`data`][`token`]}</h1>`)
+ location.href = "logout.html"
 }
 
 function failureFunction (errro5555) {
     console.log(`fail`)
 }
+// button is set to just go to logout.html
+document.getElementById(`to_logout`).addEventListener(`click`, to_logout_page);
 
+let cookie_token = Cookies.get(`token`);
+console.log(cookie_token);
 
+function to_logout_page (details) {
+    if (cookie_token === undefined) {
+   document.body.insertAdjacentHTML(`beforeend`, `<h1> you haven't logged in</h1>`)
+    
+    } else if (cookie_token !== undefined) {
+        // Cookies.remove(`token`);
+        location.href = "logout.html";
+    }
+    
+}
+
+/*
 function my_function(details) {
     a = 2
 }
 let input = document.getElementById(`inputBox`);
 input.addEventListener(`click`, my_function);
+*/
